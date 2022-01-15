@@ -5,10 +5,6 @@ messages:
    not_in_gang: '&3Bạn cần có gang để thực hiện điều này.'
    not_gang_owner: '&3Bạn cần phải là chủ gang để thực hiện điều này.'
    in_gang: '&3Bạn cần thoát gang để thực hiện điều này.'
-   home_set: '&3Đã tạo nhà cho gang.'
-   home_not_set: '&3Nhà của gang không tồn tại.'
-   teleporting_home: '&3Dịch chuyển về nhà của gang...'
-   unknown_command: '&3Lệnh không tồn tại. gõ /gang help để xem thêm thông tin'
    many_players: '&3Gang đã đầy và không thể thêm người mới.'
    not_online: '&3Người chơi không hoạt động'
    joined_gang: '&3Đã tham gia gang.'
@@ -17,8 +13,10 @@ messages:
    player_not_gang: '&3Người chơi không có trong gang.'
    player_kicked: '&3Người chơi đã bị kick.'
    player_in_gang: '&3Người chơi đã ở trong gang.'
-   reward_claimed: '&3Đã nhận phần thưởng.'
-   hours_not_passed: '&3Cần 24h trôi qua để nhận quà gang.'
-   no_reward_for_level: '&3Không có quà cho cấp gang hiện tại.'
    gang_owner: '&cBạn không thể thực hiện điều này vì bạn là chủ gang.'
    left_gang: '&cĐã rời gang.'
+   unknown_command:
+   - "&3/Gang create <Tên Gang> - Tạo Gang"
+   - "&3/Gang kick <Thành viên> - Xóa thành viên khỏi Gang"
+   - "&3/Gang leave <Tên Gang> - Thoát khỏi Gang"
+   - "&e/Gang member - Xem các thành viên của Gang "

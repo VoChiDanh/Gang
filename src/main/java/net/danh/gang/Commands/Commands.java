@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.UUID;
 
 import net.danh.gang.Files.Files;
+import net.danh.gang.Gang;
 import net.danh.gang.Manager.Gangs;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -29,9 +30,9 @@ public class Commands implements CommandExecutor {
                 if (args[0].equalsIgnoreCase("create")) {
                     if (args.length == 2) {
                         if (!Gangs.inGang(p).booleanValue()) {
-                            long gangPrice = 10000000000L;
-                            if (net.danh.gang.Gang.economy.getBalance((OfflinePlayer)p) >= gangPrice) {
-                                net.danh.gang.Gang.economy.withdrawPlayer((OfflinePlayer)p, gangPrice);
+                            long gangPrice = Files.getInstance().getconfig().getInt("settings.createmoney");
+                            if (Gang.economy.getBalance((OfflinePlayer)p) >= gangPrice) {
+                                Gang.economy.withdrawPlayer((OfflinePlayer)p, gangPrice);
                                 Gangs.createGang(args[1], p);
                                 p.sendMessage(Files.getInstance().convert(Files.getInstance().getlanguage().getString("messages.gang_created").replaceAll("%gang_name%", args[1])));
                             } else {
@@ -42,67 +43,6 @@ public class Commands implements CommandExecutor {
                         }
                     } else {
                         p.sendMessage(Files.getInstance().convert(Files.getInstance().getlanguage().getString("messages.not_enough_create_args")));
-                    }
-                } else if (args[0].equalsIgnoreCase("reward")) {
-                    if (Gangs.inGang(p).booleanValue()) {
-                        Gangs pGang = Gangs.getGang(p);
-                        if (!Files.getInstance().getdata().contains("claimed." + p.getUniqueId().toString())) {
-                            if (Files.getInstance().getconfig().contains("rewards.level" + String.valueOf(pGang.level))) {
-                                List<String> commands = Files.getInstance().getconfig().getStringList("rewards.level" + String.valueOf(1));
-                                for (String commandz : commands) {
-                                    Files.getInstance().getdata().set("claimed." + p.getUniqueId().toString(), String.valueOf(System.currentTimeMillis()));
-                                    Files.getInstance().savedata();
-                                    ConsoleCommandSender console = Bukkit.getServer().getConsoleSender();
-                                    Bukkit.dispatchCommand((CommandSender)console, commandz.replaceAll("%player%", p.getName()));
-                                    p.sendMessage(Files.getInstance().convert(Files.getInstance().getlanguage().getString("messages.reward_claimed")));
-                                }
-                            } else {
-                                p.sendMessage(Files.getInstance().convert(Files.getInstance().getlanguage().getString("messages.no_reward_for_level")));
-                            }
-                        } else if (Long.valueOf(Files.getInstance().getdata().getString("claimed." + p.getUniqueId().toString())).longValue() < System.currentTimeMillis() - 86400000L) {
-                            if (Files.getInstance().getconfig().contains("rewards.level" + String.valueOf(pGang.level))) {
-                                List<String> commands = Files.getInstance().getconfig().getStringList("rewards.level" + String.valueOf(1));
-                                for (String commandz : commands) {
-                                    Files.getInstance().getdata().set("claimed." + p.getUniqueId().toString(), String.valueOf(System.currentTimeMillis()));
-                                    Files.getInstance().savedata();
-                                    ConsoleCommandSender console = Bukkit.getServer().getConsoleSender();
-                                    Bukkit.dispatchCommand((CommandSender)console, commandz);
-                                    p.sendMessage(Files.getInstance().convert(Files.getInstance().getlanguage().getString("messages.reward_claimed")));
-                                }
-                            } else {
-                                p.sendMessage(Files.getInstance().convert(Files.getInstance().getlanguage().getString("messages.no_reward_for_level")));
-                            }
-                        } else {
-                            p.sendMessage(Files.getInstance().convert(Files.getInstance().getlanguage().getString("messages.hours_not_passed")));
-                        }
-                    } else {
-                        p.sendMessage(Files.getInstance().convert(Files.getInstance().getlanguage().getString("messages.not_in_gang")));
-                    }
-                } else if (args[0].equalsIgnoreCase("home")) {
-                    if (Gangs.inGang(p).booleanValue()) {
-                        Gangs pGang = Gangs.getGang(p);
-                        if (pGang.location != null) {
-                            p.teleport(pGang.location);
-                            p.sendMessage(Files.getInstance().convert(Files.getInstance().getlanguage().getString("messages.teleporting_home")));
-                        } else {
-                            p.sendMessage(Files.getInstance().convert(Files.getInstance().getlanguage().getString("messages.home_not_set")));
-                        }
-                    } else {
-                        p.sendMessage(Files.getInstance().convert(Files.getInstance().getlanguage().getString("messages.not_in_gang")));
-                    }
-                } else if (args[0].equalsIgnoreCase("sethome")) {
-                    if (Gangs.inGang(p).booleanValue()) {
-                        if (Gangs.isOwner(p).booleanValue()) {
-                            Gangs pGang = Gangs.getGang(p);
-                            pGang.location = p.getLocation();
-                            Files.getInstance().getdata().set("gangs." + pGang.name + ".home", Gangs.getInstance().getStringLocation(pGang.location));
-                            Files.getInstance().savedata();
-                            p.sendMessage(Files.getInstance().convert(Files.getInstance().getlanguage().getString("messages.home_set")));
-                        } else {
-                            p.sendMessage(Files.getInstance().convert(Files.getInstance().getlanguage().getString("messages.not_gang_owner")));
-                        }
-                    } else {
-                        p.sendMessage(Files.getInstance().convert(Files.getInstance().getlanguage().getString("messages.not_in_gang")));
                     }
                 } else if (args[0].equalsIgnoreCase("kick")) {
                     if (args.length == 2) {
@@ -323,10 +263,11 @@ public class Commands implements CommandExecutor {
                     }
                 }
             } else {
-                p.sendMessage(Files.getInstance().convert(Files.getInstance().getlanguage().getString("messages.unknown_command")));
+                for (String helpplayer : Files.getInstance().getlanguage().getStringList("messages.unknown_command"))
+                    p.sendMessage(Files.getInstance().convert(helpplayer));
             }
         } else {
-            sender.sendMessage("Gangs > Console commands are not supported, please execute commands as a Player.");
+            sender.sendMessage("Gang > Console commands are not supported, please execute commands as a Player.");
             return true;
         }
         return false;

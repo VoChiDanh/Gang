@@ -1,5 +1,6 @@
 settings:
    maxlevel: 4
+   createmoney: 0
 
 levels:
    level1: 0
@@ -7,6 +8,3 @@ levels:
    level3: 3
    level4: 5
 
-rewards:
-   level1:
-      - give %player% minecraft:diamond 1

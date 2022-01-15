@@ -13,7 +13,7 @@ public class Events implements Listener {
     @EventHandler
     public void inventoryClick(InventoryClickEvent e) {
         if (e.getInventory().getType().equals(InventoryType.CHEST) &&
-                e.getInventory().getTitle().equals(ChatColor.DARK_GRAY + "Gang Members"))
+                e.getInventory().getTitle().equals(ChatColor.DARK_GRAY + "Thành Viên Của Gang"))
             e.setCancelled(true);
     }
 
