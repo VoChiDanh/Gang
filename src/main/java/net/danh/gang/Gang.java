@@ -3,6 +3,7 @@ package net.danh.gang;
 import net.danh.gang.Commands.Commands;
 import net.danh.gang.Events.Events;
 import net.danh.gang.Files.Files;
+import net.danh.gang.Hook.PlaceholderAPI;
 import net.milkbowl.vault.economy.Economy;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.event.Listener;
@@ -36,6 +37,7 @@ public final class Gang extends JavaPlugin {
         }
         if (getServer().getPluginManager().isPluginEnabled("PlaceholderAPI")) {
             getLogger().log(Level.INFO, "Hooked onto PlaceholderAPI");
+            new PlaceholderAPI().register();
         } else {
             getServer().getPluginManager().disablePlugin(this);
         }
