@@ -1,0 +1,9 @@
+name: Gang
+version: '${project.version}'
+main: net.danh.gang.Gang
+depend: [Vault, PlaceholderAPI]
+authors: [VoChiDanh]
+commands:
+   gang:
+      description: Main Gang command.
+      aliases: [g]
