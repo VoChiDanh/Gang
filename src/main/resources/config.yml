@@ -7,4 +7,8 @@ levels:
    level2: 1
    level3: 3
    level4: 5
-
+Break:
+   IRON_ORE: 1
+   COAL_ORE: 5
+   GOLDEN_ORE: 10
+   EMERALD_ORE: 20
