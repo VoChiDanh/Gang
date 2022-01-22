@@ -1,14 +1,10 @@
 settings:
-  maxlevel: 4
+  maxlevel: 5
   createmoney: 0
 
 levels:
-  level1: 0
-  level2: 1
-  level3: 3
-  level4: 5
-Break:
-  IRON_ORE: 1
-  COAL_ORE: 5
-  GOLDEN_ORE: 10
-  EMERALD_ORE: 20
+  level1: 10000
+  level2: 500000
+  level3: 1000000
+  level4: 50000000
+  level5: 100000000

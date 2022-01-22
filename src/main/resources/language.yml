@@ -1,5 +1,5 @@
 messages:
-  gang_created: '&3Gang đã được tạo với tên %gang_name%.'
+  gang_created: '&3Đã tạo Gang với tên %gang_name%.'
   not_enough_money: '&3Bạn không đủ tiền để tạo gang.'
   not_enough_create_args: '&3Not enough arguments.'
   not_in_gang: '&3Bạn cần có gang để thực hiện điều này.'

@@ -48,7 +48,7 @@ public class PlaceholderAPI extends PlaceholderExpansion {
 
         if (identifier.equalsIgnoreCase("gangname")) {
             if (Gangs.getInstance().playerGang.containsKey(p.getUniqueId()))
-                return ((Gangs) Gangs.getInstance().playerGang.get(p.getUniqueId())).name;
+                return Gangs.getInstance().playerGang.get(p.getUniqueId()).name;
             return "";
         }
         if (identifier.equalsIgnoreCase("xpneeded")) {

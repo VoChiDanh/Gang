@@ -24,6 +24,7 @@ public class Gangs {
     public UUID owner;
     public Integer level;
     public Integer earnedxp = Integer.valueOf(0);
+    public Integer losexp = Integer.valueOf(0);
 
     public static Gangs getInstance() {
 
@@ -53,8 +54,6 @@ public class Gangs {
         pGang.name = name;
         pGang.level = Integer.valueOf(Files.getInstance().getdata().getInt("gangs." + name + ".level"));
         pGang.earnedxp = Integer.valueOf(Files.getInstance().getdata().getInt("gangs." + name + ".xp"));
-        if (Files.getInstance().getdata().contains("gangs." + name + ".home"))
-            pGang.location = getLocation(Files.getInstance().getdata().getString("gangs." + name + ".home"));
         pGang.owner = UUID.fromString(Files.getInstance().getdata().getString("gangs." + name + ".owner"));
         List<?> list = Files.getInstance().getdata().getList("gangs." + name + ".members");
         List<String> lists = (List) list;
@@ -80,26 +79,6 @@ public class Gangs {
         initializeGang(name);
     }
 
-    public static Location getLocation(String s) {
-        if (s == null || s.trim() == "")
-            return null;
-        String[] parts = s.split(":");
-        if (parts.length == 4) {
-            World w = Bukkit.getServer().getWorld(parts[0]);
-            double x = Double.parseDouble(parts[1]);
-            double y = Double.parseDouble(parts[2]);
-            double z = Double.parseDouble(parts[3]);
-            return new Location(w, x, y, z);
-        }
-        return null;
-    }
-
-    public static String getStringLocation(Location loc) {
-        if (loc == null)
-            return "";
-        return loc.getWorld().getName() + ":" + loc.getBlockX() + ":" + loc.getBlockY() + ":" + loc.getBlockZ();
-    }
-
     public void addXP(int xp) {
         if (this.level.intValue() < Files.getInstance().getconfig().getInt("settings.maxlevel")) {
             this.earnedxp = Integer.valueOf(this.earnedxp.intValue() + xp);
@@ -109,10 +88,23 @@ public class Gangs {
                 this.level = Integer.valueOf(nextlevel);
                 Files.getInstance().getdata().set("gangs." + this.name + ".level", String.valueOf(this.level));
                 Files.getInstance().getdata().set("gangs." + this.name + ".xp", String.valueOf(this.earnedxp));
-                Files.getInstance().saveconfig();
+                Files.getInstance().savedata();
             } else {
                 Files.getInstance().getdata().set("gangs." + this.name + ".xp", String.valueOf(this.earnedxp));
-                Files.getInstance().saveconfig();
+                Files.getInstance().savedata();
+            }
+        }
+    }
+
+    public void removeXP(int xp) {
+        if (this.level.intValue() < Files.getInstance().getconfig().getInt("settings.maxlevel")) {
+            this.losexp = Integer.valueOf(Files.getInstance().getdata().getInt("gangs." + this.name + ".xp") - xp);
+            if (this.losexp.intValue() < Files.getInstance().getdata().getInt("gangs." + this.name + ".xp")) {
+                Files.getInstance().getdata().set("gangs." + this.name + ".xp", String.valueOf(this.losexp));
+                Files.getInstance().savedata();
+            } else {
+                Files.getInstance().getdata().set("gangs." + this.name + ".xp", 0);
+                Files.getInstance().savedata();
             }
         }
     }

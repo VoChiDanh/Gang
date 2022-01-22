@@ -28,10 +28,10 @@ public class Commands implements CommandExecutor {
             if (args.length > 0) {
                 if (args[0].equalsIgnoreCase("create")) {
                     if (args.length == 2) {
-                        if (!Gangs.inGang(p).booleanValue()) {
+                        if (!Gangs.inGang(p)) {
                             long gangPrice = Files.getInstance().getconfig().getInt("settings.createmoney");
-                            if (Gang.economy.getBalance((OfflinePlayer) p) >= gangPrice) {
-                                Gang.economy.withdrawPlayer((OfflinePlayer) p, gangPrice);
+                            if (Gang.economy.getBalance(p) >= gangPrice) {
+                                Gang.economy.withdrawPlayer(p, gangPrice);
                                 Gangs.createGang(args[1], p);
                                 p.sendMessage(Files.getInstance().convert(Files.getInstance().getlanguage().getString("messages.gang_created").replaceAll("%gang_name%", args[1])));
                             } else {
@@ -45,8 +45,8 @@ public class Commands implements CommandExecutor {
                     }
                 } else if (args[0].equalsIgnoreCase("kick")) {
                     if (args.length == 2) {
-                        if (Gangs.inGang(p).booleanValue()) {
-                            if (Gangs.isOwner(p).booleanValue()) {
+                        if (Gangs.inGang(p)) {
+                            if (Gangs.isOwner(p)) {
                                 Gangs pGang = Gangs.getGang(p);
                                 OfflinePlayer kickedplayer = Bukkit.getOfflinePlayer(args[1]);
                                 UUID kickeduuid = kickedplayer.getUniqueId();
@@ -74,8 +74,8 @@ public class Commands implements CommandExecutor {
                     }
                 } else if (args[0].equalsIgnoreCase("leave")) {
                     if (args.length == 2) {
-                        if (Gangs.inGang(p).booleanValue()) {
-                            if (!Gangs.isOwner(p).booleanValue()) {
+                        if (Gangs.inGang(p)) {
+                            if (!Gangs.isOwner(p)) {
                                 UUID kickeduuid = p.getUniqueId();
                                 Gangs.playerGang.remove(kickeduuid);
                                 Gangs pGang = Gangs.getGang(p);
@@ -97,13 +97,13 @@ public class Commands implements CommandExecutor {
                     }
                 } else if (args[0].equalsIgnoreCase("invite")) {
                     if (args.length == 2) {
-                        if (Gangs.inGang(p).booleanValue()) {
+                        if (Gangs.inGang(p)) {
                             Gangs pGang = Gangs.getGang(p);
                             if (pGang.gangPlayers.size() < 15) {
                                 Player invitedplayer = Bukkit.getPlayer(args[1]);
                                 if (invitedplayer != null) {
                                     UUID inviteduuid = invitedplayer.getUniqueId();
-                                    if (!Gangs.inGang(invitedplayer).booleanValue()) {
+                                    if (!Gangs.inGang(invitedplayer)) {
                                         Gangs.invite.put(inviteduuid, pGang);
                                         p.sendMessage(Files.getInstance().convert(Files.getInstance().getlanguage().getString("messages.invite_sent").replaceAll("%player%", invitedplayer.getName())));
                                         invitedplayer.sendMessage(Files.getInstance().convert(Files.getInstance().getlanguage().getString("messages.gang_invite").replaceAll("%gangname%", pGang.name)));
@@ -124,7 +124,7 @@ public class Commands implements CommandExecutor {
                     }
                 } else if (args[0].equalsIgnoreCase("accept")) {
                     if (Gangs.invite.containsKey(p.getUniqueId())) {
-                        Gangs pGang = (Gangs) Gangs.invite.get(p.getUniqueId());
+                        Gangs pGang = Gangs.invite.get(p.getUniqueId());
                         Gangs.playerGang.put(p.getUniqueId(), pGang);
                         pGang.gangPlayers.add(p.getUniqueId());
                         List<String> stringmembers = new ArrayList<>();
@@ -136,7 +136,7 @@ public class Commands implements CommandExecutor {
                     }
                 } else if (args[0].equalsIgnoreCase("member")) {
                     if (Gangs.playerGang.containsKey(p.getUniqueId())) {
-                        Gangs pGang = (Gangs) Gangs.playerGang.get(p.getUniqueId());
+                        Gangs pGang = Gangs.playerGang.get(p.getUniqueId());
                         Inventory inv = Bukkit.createInventory(null, InventoryType.CHEST, ChatColor.DARK_GRAY + "Gangs Members");
                         ItemStack glass = new ItemStack(Material.STAINED_GLASS_PANE, 1, (short) 15);
                         ItemMeta glassMeta = glass.getItemMeta();
@@ -150,7 +150,7 @@ public class Commands implements CommandExecutor {
                         metas.setOwner("MHF_Question");
                         metas.setDisplayName(" ");
                         ItemStack stacks = new ItemStack(Material.SKULL_ITEM, 1, (short) 3);
-                        stacks.setItemMeta((ItemMeta) metas);
+                        stacks.setItemMeta(metas);
                         int i;
                         for (i = 1; i <= 15; i++) {
                             switch (i) {
@@ -206,7 +206,7 @@ public class Commands implements CommandExecutor {
                             SkullMeta meta = (SkullMeta) Bukkit.getItemFactory().getItemMeta(Material.SKULL_ITEM);
                             meta.setOwner(Bukkit.getOfflinePlayer(player).getName());
                             ItemStack stack = new ItemStack(Material.SKULL_ITEM, 1, (short) 3);
-                            stack.setItemMeta((ItemMeta) meta);
+                            stack.setItemMeta(meta);
                             switch (i) {
                                 case 1:
                                     inv.setItem(2, stack);
