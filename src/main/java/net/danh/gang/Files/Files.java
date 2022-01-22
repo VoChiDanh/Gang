@@ -4,13 +4,14 @@ import net.danh.gang.Gang;
 import org.bukkit.configuration.InvalidConfigurationException;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
-import org.bukkit.entity.Player;
 
 import java.io.File;
 import java.io.IOException;
 
 public class Files {
     private static Files instance;
+    private File configFile, languageFile, dataFile;
+    private FileConfiguration config, language, data;
 
     public static Files getInstance() {
 
@@ -19,11 +20,6 @@ public class Files {
         }
         return instance;
     }
-
-
-    private File configFile, languageFile, dataFile;
-    private FileConfiguration config, language, data;
-
 
     public void createconfig() {
         configFile = new File(Gang.getInstance().getDataFolder(), "config.yml");

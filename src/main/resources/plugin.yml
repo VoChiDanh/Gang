@@ -1,9 +1,9 @@
 name: Gang
-version: '${project.version}'
+version: '${project.version}-${devbuild.version}'
 main: net.danh.gang.Gang
-depend: [Vault, PlaceholderAPI]
-authors: [VoChiDanh]
+depend: [ Vault, PlaceholderAPI ]
+authors: [ VoChiDanh ]
 commands:
-   gang:
-      description: Main Gang command.
-      aliases: [g]
+  gang:
+    description: Main Gang command.
+    aliases: [ g ]

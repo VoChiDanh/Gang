@@ -5,8 +5,6 @@ import net.danh.gang.Events.Events;
 import net.danh.gang.Files.Files;
 import net.danh.gang.Hook.PlaceholderAPI;
 import net.milkbowl.vault.economy.Economy;
-import org.bukkit.command.CommandExecutor;
-import org.bukkit.event.Listener;
 import org.bukkit.plugin.RegisteredServiceProvider;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -15,11 +13,10 @@ import java.util.logging.Level;
 public final class Gang extends JavaPlugin {
 
 
+    public static Economy economy;
     private static Gang instance;
 
-    public static Economy economy;
-
-    public static Gang getInstance(){
+    public static Gang getInstance() {
         return instance;
     }
 
@@ -58,7 +55,7 @@ public final class Gang extends JavaPlugin {
     private boolean setupEconomy() {
         RegisteredServiceProvider<Economy> economyProvider = getServer().getServicesManager().getRegistration(Economy.class);
         if (economyProvider != null)
-            economy = (Economy)economyProvider.getProvider();
+            economy = (Economy) economyProvider.getProvider();
         return (economy != null);
     }
 }

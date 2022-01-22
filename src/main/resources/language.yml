@@ -1,22 +1,22 @@
 messages:
-   gang_created: '&3Gang đã được tạo với tên %gang_name%.'
-   not_enough_money: '&3Bạn không đủ tiền để tạo gang.'
-   not_enough_create_args: '&3Not enough arguments.'
-   not_in_gang: '&3Bạn cần có gang để thực hiện điều này.'
-   not_gang_owner: '&3Bạn cần phải là chủ gang để thực hiện điều này.'
-   in_gang: '&3Bạn cần thoát gang để thực hiện điều này.'
-   many_players: '&3Gang đã đầy và không thể thêm người mới.'
-   not_online: '&3Người chơi không hoạt động'
-   joined_gang: '&3Đã tham gia gang.'
-   invite_sent: '&3Mời người chơi %player%'
-   gang_invite: '&3Bạn nhận được lời mời vào gang %gangname%. Gõ /gang accept để vào gang'
-   player_not_gang: '&3Người chơi không có trong gang.'
-   player_kicked: '&3Người chơi đã bị kick.'
-   player_in_gang: '&3Người chơi đã ở trong gang.'
-   gang_owner: '&cBạn không thể thực hiện điều này vì bạn là chủ gang.'
-   left_gang: '&cĐã rời gang.'
-   unknown_command:
-   - "&3/Gang create <Tên Gang> - Tạo Gang"
-   - "&3/Gang kick <Thành viên> - Xóa thành viên khỏi Gang"
-   - "&3/Gang leave <Tên Gang> - Thoát khỏi Gang"
-   - "&e/Gang member - Xem các thành viên của Gang "
+  gang_created: '&3Gang đã được tạo với tên %gang_name%.'
+  not_enough_money: '&3Bạn không đủ tiền để tạo gang.'
+  not_enough_create_args: '&3Not enough arguments.'
+  not_in_gang: '&3Bạn cần có gang để thực hiện điều này.'
+  not_gang_owner: '&3Bạn cần phải là chủ gang để thực hiện điều này.'
+  in_gang: '&3Bạn cần thoát gang để thực hiện điều này.'
+  many_players: '&3Gang đã đầy và không thể thêm người mới.'
+  not_online: '&3Người chơi không hoạt động'
+  joined_gang: '&3Đã tham gia gang.'
+  invite_sent: '&3Mời người chơi %player%'
+  gang_invite: '&3Bạn nhận được lời mời vào gang %gangname%. Gõ /gang accept để vào gang'
+  player_not_gang: '&3Người chơi không có trong gang.'
+  player_kicked: '&3Người chơi đã bị kick.'
+  player_in_gang: '&3Người chơi đã ở trong gang.'
+  gang_owner: '&cBạn không thể thực hiện điều này vì bạn là chủ gang.'
+  left_gang: '&cĐã rời gang.'
+  unknown_command:
+    - "&3/Gang create <Tên Gang> - Tạo Gang"
+    - "&3/Gang kick <Thành viên> - Xóa thành viên khỏi Gang"
+    - "&3/Gang leave <Tên Gang> - Thoát khỏi Gang"
+    - "&e/Gang member - Xem các thành viên của Gang "

@@ -1,9 +1,5 @@
 package net.danh.gang.Commands;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.UUID;
-
 import net.danh.gang.Files.Files;
 import net.danh.gang.Gang;
 import net.danh.gang.Manager.Gangs;
@@ -14,7 +10,6 @@ import org.bukkit.OfflinePlayer;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
-import org.bukkit.command.ConsoleCommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.InventoryType;
 import org.bukkit.inventory.Inventory;
@@ -22,17 +17,21 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.inventory.meta.SkullMeta;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.UUID;
+
 public class Commands implements CommandExecutor {
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         if (sender instanceof Player) {
-            Player p = (Player)sender;
+            Player p = (Player) sender;
             if (args.length > 0) {
                 if (args[0].equalsIgnoreCase("create")) {
                     if (args.length == 2) {
                         if (!Gangs.inGang(p).booleanValue()) {
                             long gangPrice = Files.getInstance().getconfig().getInt("settings.createmoney");
-                            if (Gang.economy.getBalance((OfflinePlayer)p) >= gangPrice) {
-                                Gang.economy.withdrawPlayer((OfflinePlayer)p, gangPrice);
+                            if (Gang.economy.getBalance((OfflinePlayer) p) >= gangPrice) {
+                                Gang.economy.withdrawPlayer((OfflinePlayer) p, gangPrice);
                                 Gangs.createGang(args[1], p);
                                 p.sendMessage(Files.getInstance().convert(Files.getInstance().getlanguage().getString("messages.gang_created").replaceAll("%gang_name%", args[1])));
                             } else {
@@ -139,7 +138,7 @@ public class Commands implements CommandExecutor {
                     if (Gangs.playerGang.containsKey(p.getUniqueId())) {
                         Gangs pGang = (Gangs) Gangs.playerGang.get(p.getUniqueId());
                         Inventory inv = Bukkit.createInventory(null, InventoryType.CHEST, ChatColor.DARK_GRAY + "Gangs Members");
-                        ItemStack glass = new ItemStack(Material.STAINED_GLASS_PANE, 1, (short)15);
+                        ItemStack glass = new ItemStack(Material.STAINED_GLASS_PANE, 1, (short) 15);
                         ItemMeta glassMeta = glass.getItemMeta();
                         glassMeta.setDisplayName(" ");
                         glass.setItemMeta(glassMeta);
@@ -147,11 +146,11 @@ public class Commands implements CommandExecutor {
                             if (inv.getItem(x) == null)
                                 inv.setItem(x, glass);
                         }
-                        SkullMeta metas = (SkullMeta)Bukkit.getItemFactory().getItemMeta(Material.SKULL_ITEM);
+                        SkullMeta metas = (SkullMeta) Bukkit.getItemFactory().getItemMeta(Material.SKULL_ITEM);
                         metas.setOwner("MHF_Question");
                         metas.setDisplayName(" ");
-                        ItemStack stacks = new ItemStack(Material.SKULL_ITEM, 1, (short)3);
-                        stacks.setItemMeta((ItemMeta)metas);
+                        ItemStack stacks = new ItemStack(Material.SKULL_ITEM, 1, (short) 3);
+                        stacks.setItemMeta((ItemMeta) metas);
                         int i;
                         for (i = 1; i <= 15; i++) {
                             switch (i) {
@@ -204,10 +203,10 @@ public class Commands implements CommandExecutor {
                         }
                         i = 1;
                         for (UUID player : pGang.gangPlayers) {
-                            SkullMeta meta = (SkullMeta)Bukkit.getItemFactory().getItemMeta(Material.SKULL_ITEM);
+                            SkullMeta meta = (SkullMeta) Bukkit.getItemFactory().getItemMeta(Material.SKULL_ITEM);
                             meta.setOwner(Bukkit.getOfflinePlayer(player).getName());
-                            ItemStack stack = new ItemStack(Material.SKULL_ITEM, 1, (short)3);
-                            stack.setItemMeta((ItemMeta)meta);
+                            ItemStack stack = new ItemStack(Material.SKULL_ITEM, 1, (short) 3);
+                            stack.setItemMeta((ItemMeta) meta);
                             switch (i) {
                                 case 1:
                                     inv.setItem(2, stack);
