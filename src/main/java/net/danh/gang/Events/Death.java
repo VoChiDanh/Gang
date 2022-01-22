@@ -7,9 +7,12 @@ import org.bukkit.event.entity.PlayerDeathEvent;
 
 public class Death implements Listener {
     @EventHandler(ignoreCancelled = true)
-    public void onDeath(PlayerDeathEvent e){
-        if (Gangs.inGang(e.getEntity().getPlayer())){
-            Gangs.getGang(e.getEntity().getPlayer()).removeXP(100);
+    public void onDeath(PlayerDeathEvent e) {
+        if (Gangs.inGang(e.getEntity().getPlayer())) {
+            Gangs.getGang(e.getEntity().getPlayer()).removeXP(50);
+            if (Gangs.isOwner(e.getEntity().getPlayer())) {
+                Gangs.getGang(e.getEntity().getPlayer()).removeXP(100);
+            }
         }
     }
 }
