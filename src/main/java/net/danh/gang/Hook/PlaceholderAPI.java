@@ -46,18 +46,28 @@ public class PlaceholderAPI extends PlaceholderExpansion {
             return "Player not online";
         }
 
-        if (identifier.equalsIgnoreCase("gangname")) {
+        if (identifier.equalsIgnoreCase("name")) {
             if (Gangs.getInstance().playerGang.containsKey(p.getUniqueId()))
-                return Gangs.getInstance().playerGang.get(p.getUniqueId()).name;
+                return ((Gangs) Gangs.getInstance().playerGang.get(p.getUniqueId())).name;
             return "";
         }
-        if (identifier.equalsIgnoreCase("xpneeded")) {
+        if (identifier.equalsIgnoreCase("xpmax")) {
             if (Gangs.getInstance().inGang(p).booleanValue()) {
                 Gangs pGang = Gangs.getInstance().getGang(p);
                 if (pGang.level.intValue() < Files.getInstance().getconfig().getInt("settings.maxlevel")) {
-                    int nextlevel = pGang.level.intValue() + 1;
-                    int nextlevelxp = Files.getInstance().getconfig().getInt("levels.level" + nextlevel);
-                    return String.valueOf(nextlevelxp - pGang.earnedxp.intValue());
+                    int level = pGang.level.intValue();
+                    int levelxp = Files.getInstance().getconfig().getInt("levels.level" + level);
+                    return String.valueOf(levelxp);
+                }
+                return "";
+            }
+            return "";
+        }
+        if (identifier.equalsIgnoreCase("xp")){
+            if (Gangs.inGang(p).booleanValue()){
+                Gangs pGang = Gangs.getInstance().getGang(p);
+                if (pGang.level.intValue() < Files.getInstance().getconfig().getInt("settings.maxlevel")) {
+                    return String.valueOf(pGang.earnedxp.intValue());
                 }
                 return "";
             }

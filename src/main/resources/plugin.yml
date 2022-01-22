@@ -2,6 +2,9 @@ name: Gang
 version: '${project.version}-${devbuild.version}'
 main: net.danh.gang.Gang
 depend: [ Vault, PlaceholderAPI ]
+softdepend:
+  - Fee
+  - Jobs
 authors: [ VoChiDanh ]
 commands:
   gang:

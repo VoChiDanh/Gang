@@ -1,6 +1,8 @@
 package net.danh.gang;
 
+import com.google.common.eventbus.DeadEvent;
 import net.danh.gang.Commands.Commands;
+import net.danh.gang.Events.Death;
 import net.danh.gang.Events.Events;
 import net.danh.gang.Files.Files;
 import net.danh.gang.Hook.PlaceholderAPI;
@@ -25,6 +27,7 @@ public final class Gang extends JavaPlugin {
         instance = this;
         getCommand("gang").setExecutor(new Commands());
         getServer().getPluginManager().registerEvents(new Events(), this);
+        getServer().getPluginManager().registerEvents(new Death(), this);
         Files.getInstance().createconfig();
 
         if (!setupEconomy()) {
@@ -42,6 +45,15 @@ public final class Gang extends JavaPlugin {
             getLogger().log(Level.INFO, "Hooked onto Vault");
         } else {
             getServer().getPluginManager().disablePlugin(this);
+        }
+
+        if (getServer().getPluginManager().isPluginEnabled("Jobs")) {
+            getLogger().log(Level.INFO, "Hooked onto Jobs");
+        }
+
+
+        if (getServer().getPluginManager().isPluginEnabled("Fee")) {
+            getLogger().log(Level.INFO, "Hooked onto Fee");
         }
 
     }
