@@ -114,13 +114,23 @@ public class Files {
     }
 
     public void removeLevel(Player p, int number) {
-        getdata().set("gangs." + Gangs.getGang(p).name + ".level", getLevel(p) - number);
-        savedata();
+        if (getLevel(p) > number) {
+            getdata().set("gangs." + Gangs.getGang(p).name + ".level", getLevel(p) - number);
+            savedata();
+        } else {
+            getdata().set("gangs." + Gangs.getInstance().name + ".level", 1);
+            savedata();
+        }
     }
 
     public void removeXP(Player p, int number) {
-        getdata().set("gangs." + Gangs.getGang(p).name + ".level", getXP(p) - number);
-        savedata();
+        if (getXP(p) > number) {
+            getdata().set("gangs." + Gangs.getGang(p).name + ".xp", getXP(p) - number);
+            savedata();
+        } else {
+            getdata().set("gangs." + Gangs.getInstance().name + ".xp", 0);
+            savedata();
+        }
     }
 
     public void checkLevelup(Player p) {

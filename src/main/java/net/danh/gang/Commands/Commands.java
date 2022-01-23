@@ -264,8 +264,40 @@ public class Commands implements CommandExecutor {
                     if (Gangs.inGang(p)) {
                         p.sendMessage(Files.getInstance().convert("&aGang &b" + Gangs.getGang(p).name));
                         p.sendMessage(Files.getInstance().convert("&aMember &b" + Gangs.getGang(p).gangPlayers.size()));
-                        p.sendMessage(Files.getInstance().convert("&aLevel &b" + Gangs.getGang(p).level));
-                        p.sendMessage(Files.getInstance().convert("&aXP &b" + Gangs.getGang(p).earnedxp));
+                        p.sendMessage(Files.getInstance().convert("&aLevel &b" + Files.getInstance().getLevel(p)));
+                        p.sendMessage(Files.getInstance().convert("&aXP &b" + Files.getInstance().getXP(p)));
+                    }
+                } else if (sender.hasPermission("gang.bypass")) {
+                    if (args[0].equalsIgnoreCase("stats")) {
+                        if (args.length == 5) {
+                            if (args[1].equalsIgnoreCase("xp")) {
+                                if (Gangs.getGang(Bukkit.getPlayer(args[2])).name != null) {
+                                    if (args[3].equalsIgnoreCase("set")) {
+                                        Files.getInstance().setXP(Bukkit.getPlayer(args[2]), Integer.valueOf(args[4]));
+                                        sender.sendMessage(Files.getInstance().convert("&aDone"));
+                                    } else if (args[3].equalsIgnoreCase("add")) {
+                                        Files.getInstance().addXP(Bukkit.getPlayer(args[2]), Integer.valueOf(args[4]));
+                                        sender.sendMessage(Files.getInstance().convert("&aDone"));
+                                    } else if (args[3].equalsIgnoreCase("remove")) {
+                                        Files.getInstance().removeXP(Bukkit.getPlayer(args[2]), Integer.valueOf(args[4]));
+                                        sender.sendMessage(Files.getInstance().convert("&aDone"));
+                                    }
+                                }
+                            } else if (args[1].equalsIgnoreCase("level")) {
+                                if (Gangs.getGang(Bukkit.getPlayer(args[2])).name != null) {
+                                    if (args[3].equalsIgnoreCase("set")) {
+                                        Files.getInstance().setLevel(Bukkit.getPlayer(args[2]), Integer.valueOf(args[4]));
+                                        sender.sendMessage(Files.getInstance().convert("&aDone"));
+                                    } else if (args[3].equalsIgnoreCase("add")) {
+                                        Files.getInstance().addLevel(Bukkit.getPlayer(args[2]), Integer.valueOf(args[4]));
+                                        sender.sendMessage(Files.getInstance().convert("&aDone"));
+                                    } else if (args[3].equalsIgnoreCase("remove")) {
+                                        Files.getInstance().removeLevel(Bukkit.getPlayer(args[2]), Integer.valueOf(args[4]));
+                                        sender.sendMessage(Files.getInstance().convert("&aDone"));
+                                    }
+                                }
+                            }
+                        }
                     }
                 }
             } else {
