@@ -1,5 +1,5 @@
 name: Gang
-version: '${project.version}-${devbuild.version}'
+version: '${project.version}'
 main: net.danh.gang.Gang
 depend: [ Vault, PlaceholderAPI ]
 softdepend:

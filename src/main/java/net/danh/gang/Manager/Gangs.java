@@ -1,9 +1,6 @@
 package net.danh.gang.Manager;
 
 import net.danh.gang.Files.Files;
-import org.bukkit.Bukkit;
-import org.bukkit.Location;
-import org.bukkit.World;
 import org.bukkit.entity.Player;
 
 import java.util.ArrayList;

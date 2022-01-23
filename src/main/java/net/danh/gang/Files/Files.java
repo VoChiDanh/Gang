@@ -84,47 +84,47 @@ public class Files {
         }
     }
 
-    public int getLevel(Player p){
+    public int getLevel(Player p) {
         return getdata().getInt("gangs." + Gangs.getGang(p).name + ".level");
     }
 
-    public int getXP(Player p){
+    public int getXP(Player p) {
         return getdata().getInt("gangs." + Gangs.getGang(p).name + ".xp");
     }
 
-    public void setLevel(Player p, int number){
+    public void setLevel(Player p, int number) {
         getdata().set("gangs." + Gangs.getGang(p).name + ".level", number);
         savedata();
     }
 
-    public void setXP(Player p, int number){
+    public void setXP(Player p, int number) {
         getdata().set("gangs." + Gangs.getGang(p).name + ".xp", number);
         savedata();
     }
 
-    public void addLevel(Player p, int number){
+    public void addLevel(Player p, int number) {
         getdata().set("gangs." + Gangs.getGang(p).name + ".level", getLevel(p) + number);
         savedata();
     }
 
-    public void addXP(Player p, int number){
+    public void addXP(Player p, int number) {
         getdata().set("gangs." + Gangs.getGang(p).name + ".xp", getXP(p) + number);
         checkLevelup(p);
         savedata();
     }
 
-    public void removeLevel(Player p, int number){
+    public void removeLevel(Player p, int number) {
         getdata().set("gangs." + Gangs.getGang(p).name + ".level", getLevel(p) - number);
         savedata();
     }
 
-    public void removeXP(Player p, int number){
+    public void removeXP(Player p, int number) {
         getdata().set("gangs." + Gangs.getGang(p).name + ".level", getXP(p) - number);
         savedata();
     }
 
-    public void checkLevelup(Player p){
-        if (getXP(p) >= (getLevel(p)*1000)){
+    public void checkLevelup(Player p) {
+        if (getXP(p) >= (getLevel(p) * 1000)) {
             addLevel(p, 1);
             setXP(p, 0);
             p.sendMessage(convert("&aChúc mừng gang đã lên cấp &6" + getLevel(p)));

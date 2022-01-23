@@ -1,6 +1,5 @@
 package net.danh.gang;
 
-import com.google.common.eventbus.DeadEvent;
 import net.danh.gang.Commands.Commands;
 import net.danh.gang.Events.Death;
 import net.danh.gang.Events.Events;

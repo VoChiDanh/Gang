@@ -6,14 +6,13 @@
 
     <groupId>net.danh</groupId>
     <artifactId>Gang</artifactId>
-    <version>0.1</version>
+    <version>0.1.3-SNAPSHOT</version>
     <packaging>jar</packaging>
 
     <name>Gang</name>
 
     <properties>
         <java.version>1.8</java.version>
-        <devbuild.version>SNAPSHOT-2</devbuild.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
 
