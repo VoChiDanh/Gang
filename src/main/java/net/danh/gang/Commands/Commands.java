@@ -260,6 +260,13 @@ public class Commands implements CommandExecutor {
                     } else {
                         p.sendMessage(Files.getInstance().convert(Files.getInstance().getlanguage().getString("messages.not_in_gang")));
                     }
+                } else if (args[0].equalsIgnoreCase("info")) {
+                    if (Gangs.inGang(p)) {
+                        p.sendMessage(Files.getInstance().convert("&aGang &b" + Gangs.getGang(p).name));
+                        p.sendMessage(Files.getInstance().convert("&aMember &b" + Gangs.getGang(p).gangPlayers.size()));
+                        p.sendMessage(Files.getInstance().convert("&aLevel &b" + Gangs.getGang(p).level));
+                        p.sendMessage(Files.getInstance().convert("&aXP &b" + Gangs.getGang(p).earnedxp));
+                    }
                 }
             } else {
                 for (String helpplayer : Files.getInstance().getlanguage().getStringList("messages.unknown_command"))

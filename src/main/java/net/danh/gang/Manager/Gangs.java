@@ -20,11 +20,9 @@ public class Gangs {
     private static Gangs instance;
     public List<UUID> gangPlayers = new ArrayList<>();
     public String name;
-    public Location location;
     public UUID owner;
     public Integer level;
     public Integer earnedxp = Integer.valueOf(0);
-    public Integer losexp = Integer.valueOf(0);
 
     public static Gangs getInstance() {
 
@@ -79,33 +77,4 @@ public class Gangs {
         initializeGang(name);
     }
 
-    public void addXP(int xp) {
-        if (this.level.intValue() < Files.getInstance().getconfig().getInt("settings.maxlevel")) {
-            this.earnedxp = Integer.valueOf(this.earnedxp.intValue() + xp);
-            int nextlevel = this.level.intValue() + 1;
-            if (this.earnedxp.intValue() >= Files.getInstance().getconfig().getInt("levels.level" + String.valueOf(nextlevel))) {
-                this.earnedxp = Integer.valueOf(0);
-                this.level = Integer.valueOf(nextlevel);
-                Files.getInstance().getdata().set("gangs." + this.name + ".level", String.valueOf(this.level));
-                Files.getInstance().getdata().set("gangs." + this.name + ".xp", String.valueOf(this.earnedxp));
-                Files.getInstance().savedata();
-            } else {
-                Files.getInstance().getdata().set("gangs." + this.name + ".xp", String.valueOf(this.earnedxp));
-                Files.getInstance().savedata();
-            }
-        }
-    }
-
-    public void removeXP(int xp) {
-        if (this.level.intValue() < Files.getInstance().getconfig().getInt("settings.maxlevel")) {
-            this.losexp = Integer.valueOf(Files.getInstance().getdata().getInt("gangs." + this.name + ".xp") - xp);
-            if (this.losexp.intValue() < Files.getInstance().getdata().getInt("gangs." + this.name + ".xp")) {
-                Files.getInstance().getdata().set("gangs." + this.name + ".xp", String.valueOf(this.losexp));
-                Files.getInstance().savedata();
-            } else {
-                Files.getInstance().getdata().set("gangs." + this.name + ".xp", 0);
-                Files.getInstance().savedata();
-            }
-        }
-    }
 }

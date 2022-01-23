@@ -1,9 +1,11 @@
 package net.danh.gang.Files;
 
 import net.danh.gang.Gang;
+import net.danh.gang.Manager.Gangs;
 import org.bukkit.configuration.InvalidConfigurationException;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
+import org.bukkit.entity.Player;
 
 import java.io.File;
 import java.io.IOException;
@@ -81,6 +83,54 @@ public class Files {
         } catch (IOException ignored) {
         }
     }
+
+    public int getLevel(Player p){
+        return getdata().getInt("gangs." + Gangs.getGang(p).name + ".level");
+    }
+
+    public int getXP(Player p){
+        return getdata().getInt("gangs." + Gangs.getGang(p).name + ".xp");
+    }
+
+    public void setLevel(Player p, int number){
+        getdata().set("gangs." + Gangs.getGang(p).name + ".level", number);
+        savedata();
+    }
+
+    public void setXP(Player p, int number){
+        getdata().set("gangs." + Gangs.getGang(p).name + ".xp", number);
+        savedata();
+    }
+
+    public void addLevel(Player p, int number){
+        getdata().set("gangs." + Gangs.getGang(p).name + ".level", getLevel(p) + number);
+        savedata();
+    }
+
+    public void addXP(Player p, int number){
+        getdata().set("gangs." + Gangs.getGang(p).name + ".xp", getXP(p) + number);
+        checkLevelup(p);
+        savedata();
+    }
+
+    public void removeLevel(Player p, int number){
+        getdata().set("gangs." + Gangs.getGang(p).name + ".level", getLevel(p) - number);
+        savedata();
+    }
+
+    public void removeXP(Player p, int number){
+        getdata().set("gangs." + Gangs.getGang(p).name + ".level", getXP(p) - number);
+        savedata();
+    }
+
+    public void checkLevelup(Player p){
+        if (getXP(p) >= (getLevel(p)*1000)){
+            addLevel(p, 1);
+            setXP(p, 0);
+            p.sendMessage(convert("&aChúc mừng gang đã lên cấp &6" + getLevel(p)));
+        }
+    }
+
 
     public String convert(String s) {
         return s.replaceAll("&", "§");
