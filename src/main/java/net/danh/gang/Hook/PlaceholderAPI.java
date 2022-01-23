@@ -47,36 +47,28 @@ public class PlaceholderAPI extends PlaceholderExpansion {
         }
 
         if (identifier.equalsIgnoreCase("name")) {
-            if (Gangs.getInstance().playerGang.containsKey(p.getUniqueId()))
-                return ((Gangs) Gangs.getInstance().playerGang.get(p.getUniqueId())).name;
+            if (Gangs.playerGang.containsKey(p.getUniqueId()))
+                return ((Gangs) Gangs.playerGang.get(p.getUniqueId())).name;
             return "";
         }
         if (identifier.equalsIgnoreCase("xpmax")) {
-            if (Gangs.getInstance().inGang(p).booleanValue()) {
-                Gangs pGang = Gangs.getInstance().getGang(p);
-                if (pGang.level.intValue() < Files.getInstance().getconfig().getInt("settings.maxlevel")) {
-                    int level = pGang.level.intValue();
-                    int levelxp = Files.getInstance().getconfig().getInt("levels.level" + level);
-                    return String.valueOf(levelxp);
-                }
-                return "";
+            if (Gangs.inGang(p).booleanValue()) {
+                return String.valueOf(Files.getInstance().getLevel(p) * 1000);
             }
             return "";
         }
-        if (identifier.equalsIgnoreCase("xp")){
-            if (Gangs.inGang(p).booleanValue()){
-                Gangs pGang = Gangs.getInstance().getGang(p);
-                if (pGang.level.intValue() < Files.getInstance().getconfig().getInt("settings.maxlevel")) {
-                    return String.valueOf(pGang.earnedxp.intValue());
-                }
-                return "";
+        if (identifier.equalsIgnoreCase("xp")) {
+            if (Gangs.inGang(p).booleanValue()) {
+                return String.valueOf(Files.getInstance().getXP(p));
             }
             return "";
         }
-        if (identifier.equalsIgnoreCase("level") &&
-                Gangs.getInstance().inGang(p).booleanValue())
-            return String.valueOf((Gangs.getInstance().getGang(p)).level);
+        if (identifier.equalsIgnoreCase("level")) {
+            if (Gangs.inGang(p).booleanValue()) {
+                return String.valueOf(Files.getInstance().getLevel(p));
+            }
+            return "";
+        }
         return null;
     }
-
 }
