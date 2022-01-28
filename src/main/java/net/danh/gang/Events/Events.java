@@ -12,6 +12,7 @@ public class Events implements Listener {
         if (e.getInventory().getType().equals(InventoryType.CHEST) &&
                 e.getInventory().getTitle().equals(ChatColor.DARK_GRAY + "Thành Viên Của Gang"))
             e.setCancelled(true);
+        return;
     }
 }
 

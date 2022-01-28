@@ -99,7 +99,7 @@ public class Commands implements CommandExecutor {
                     if (args.length == 2) {
                         if (Gangs.inGang(p)) {
                             Gangs pGang = Gangs.getGang(p);
-                            if (pGang.gangPlayers.size() < 15) {
+                            if (pGang.gangPlayers.size() <= 15) {
                                 Player invitedplayer = Bukkit.getPlayer(args[1]);
                                 if (invitedplayer != null) {
                                     UUID inviteduuid = invitedplayer.getUniqueId();
@@ -137,7 +137,7 @@ public class Commands implements CommandExecutor {
                 } else if (args[0].equalsIgnoreCase("member")) {
                     if (Gangs.playerGang.containsKey(p.getUniqueId())) {
                         Gangs pGang = Gangs.playerGang.get(p.getUniqueId());
-                        Inventory inv = Bukkit.createInventory(null, InventoryType.CHEST, ChatColor.DARK_GRAY + "Gangs Members");
+                        Inventory inv = Bukkit.createInventory(null, InventoryType.CHEST, ChatColor.DARK_GRAY + "Thành Viên Của Gang");
                         ItemStack glass = new ItemStack(Material.STAINED_GLASS_PANE, 1, (short) 15);
                         ItemMeta glassMeta = glass.getItemMeta();
                         glassMeta.setDisplayName(" ");
@@ -205,6 +205,7 @@ public class Commands implements CommandExecutor {
                         for (UUID player : pGang.gangPlayers) {
                             SkullMeta meta = (SkullMeta) Bukkit.getItemFactory().getItemMeta(Material.SKULL_ITEM);
                             meta.setOwner(Bukkit.getOfflinePlayer(player).getName());
+                            meta.setDisplayName(Files.getInstance().convert("&a" + Bukkit.getOfflinePlayer(player).getName()));
                             ItemStack stack = new ItemStack(Material.SKULL_ITEM, 1, (short) 3);
                             stack.setItemMeta(meta);
                             switch (i) {
